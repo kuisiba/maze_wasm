@@ -1,10 +1,17 @@
 extern crate rand;
 extern crate wasm_bindgen;
-use rand::{thread_rng, Rng};
+use rand::rngs::OsRng;
+use rand::Rng;
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
+extern "C" {
+    fn alert(msg: &str);
+}
+
+#[wasm_bindgen]
 pub fn gen_maze(w: i32, h: i32) -> Vec<u8> {
+    alert("aaa");
     //v: 1が壁で、0が通路の二次元配列
     let mut v = vec![vec![1; w as usize]; h as usize];
     let mut room_count: usize = 0;
@@ -29,7 +36,7 @@ pub fn gen_maze(w: i32, h: i32) -> Vec<u8> {
     let mut uf = UnionFind::new(room_count);
     //eprintln!("walls: {}", walls.len());
     while !walls.is_empty() {
-        let mut rng = thread_rng();
+        let mut rng = OsRng::new().unwrap();
         let w_i = rng.gen_range(0, walls.len());
         let w_pos = walls[w_i];
         if w_pos.0 % 2 == 0 {
