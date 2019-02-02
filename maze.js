@@ -1,6 +1,9 @@
-'use strict';
+let F = wasm_bindgen('./maze_wasm_bg.wasm').then(() =>
+  wasm_bindgen.gen_maze(51, 51),
+);
+F.then(val => console.log(val));
 
-const TILE_SIZE = 20;
+const TILE_SIZE = 5;
 const PARETTE = ['#FFFFFF', '#B0C4DE'];
 
 class Maze {
@@ -26,6 +29,5 @@ class Maze {
   }
 }
 
-const arr = [0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1];
-let maze = new Maze(4, 3, arr);
+let maze = new Maze(51, 51, F);
 maze.draw(field);
