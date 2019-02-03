@@ -1,14 +1,16 @@
 let gen = () =>
   wasm_bindgen('./maze_wasm_bg.wasm')
-    .then(() => wasm_bindgen.gen_maze(51, 51))
+    .then(() => wasm_bindgen.gen_maze(MAZE_WIDTH, MAZE_HEIGHT))
     .then(f => {
-      let maze = new Maze(51, 51, f);
+      let maze = new Maze(MAZE_WIDTH, MAZE_HEIGHT, f);
       //console.log(maze.field);
       maze.draw(field);
     });
 gen();
 
 const TILE_SIZE = 8;
+const MAZE_WIDTH = 51;
+const MAZE_HEIGHT = 51;
 const PARETTE = ['#FFFFFF', '#B0C4DE'];
 
 class Maze {
