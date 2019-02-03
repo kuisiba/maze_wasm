@@ -1,9 +1,14 @@
-let F = wasm_bindgen('./maze_wasm_bg.wasm').then(() =>
-  wasm_bindgen.gen_maze(51, 51),
-);
-F.then(val => console.log(val));
+let gen = () =>
+  wasm_bindgen('./maze_wasm_bg.wasm')
+    .then(() => wasm_bindgen.gen_maze(51, 51))
+    .then(f => {
+      let maze = new Maze(51, 51, f);
+      //console.log(maze.field);
+      maze.draw(field);
+    });
+gen();
 
-const TILE_SIZE = 5;
+const TILE_SIZE = 8;
 const PARETTE = ['#FFFFFF', '#B0C4DE'];
 
 class Maze {
@@ -13,6 +18,7 @@ class Maze {
     this.field = field;
   }
   color(x, y) {
+    //console.log(y * this.width + x);
     return this.field[y * this.width + x];
   }
   draw(canvas) {
@@ -29,5 +35,5 @@ class Maze {
   }
 }
 
-let maze = new Maze(51, 51, F);
-maze.draw(field);
+const button = document.querySelector('input');
+button.addEventListener('click', gen);
