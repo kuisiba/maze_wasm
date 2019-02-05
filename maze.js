@@ -1,9 +1,9 @@
-let gen = () =>
-  wasm_bindgen('./maze_wasm_bg.wasm')
+const load = wasm_bindgen('./maze_wasm_bg.wasm');
+const gen = () =>
+  load
     .then(() => wasm_bindgen.gen_maze(MAZE_WIDTH, MAZE_HEIGHT))
     .then(f => {
       let maze = new Maze(MAZE_WIDTH, MAZE_HEIGHT, f);
-      //console.log(maze.field);
       maze.draw(field);
     });
 gen();
