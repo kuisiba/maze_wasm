@@ -20,7 +20,6 @@ class Maze {
     this.field = field;
   }
   color(x, y) {
-    //console.log(y * this.width + x);
     return this.field[y * this.width + x];
   }
   draw(canvas) {

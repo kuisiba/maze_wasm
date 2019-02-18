@@ -38,7 +38,6 @@ pub fn gen_maze(w: i32, h: i32) -> Vec<u8> {
         }
     }
     let mut uf = UnionFind::new(room_count);
-    //eprintln!("walls: {}", walls.len());
     while !walls.is_empty() {
         let w_i = gen_range(walls.len());
         let w_pos = walls[w_i];
